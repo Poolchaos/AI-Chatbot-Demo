@@ -47,10 +47,10 @@ Specific venue selection depends on group size, dates, and package. Our events t
 *Booking & Process*
 
 Q: How do I book a corporate retreat with Elevate Offsites?
-A: Start by chatting with us here or leaving your email. Our events team will reach out within 24 hours to schedule a discovery call. From there, we handle venue selection, catering, logistics, and coordination — you just show up.
+A: Start by chatting with us here or leaving your email. Our events team will reach out within 24 hours to schedule a discovery call. From there, we handle venue selection, catering, logistics, and coordination - you just show up.
 
 Q: How far in advance should I book?
-A: We recommend at least 6 weeks for Urban packages, 8 weeks for Nature packages, and 12 weeks for Executive packages. Tighter timelines may be possible depending on availability — ask us.
+A: We recommend at least 6 weeks for Urban packages, 8 weeks for Nature packages, and 12 weeks for Executive packages. Tighter timelines may be possible depending on availability - ask us.
 
 Q: What is your cancellation policy?
 A: Cancellations made 30+ days before the event receive a full refund minus a 10% administrative fee. Cancellations within 14-30 days receive a 50% refund. Cancellations within 14 days are non-refundable. Rescheduling is free if done 21+ days in advance.
@@ -84,7 +84,7 @@ Q: What payment methods do you accept?
 A: We accept bank transfer (ACH), corporate credit cards, and wire transfer. Invoicing with NET-30 terms is available for companies with approved credit.
 
 Q: Do you offer discounts for larger groups?
-A: Our standard per-person pricing applies for groups up to 100. For groups larger than 100, we offer custom enterprise pricing — reach out to our events team for a tailored quote.
+A: Our standard per-person pricing applies for groups up to 100. For groups larger than 100, we offer custom enterprise pricing - reach out to our events team for a tailored quote.
 
 **WHAT WE DO NOT DO**
 - We specialize in corporate events for groups of 15-200 people.

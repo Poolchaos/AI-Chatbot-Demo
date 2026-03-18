@@ -79,7 +79,7 @@ export class ClaudeProvider implements LLMProvider {
             },
           };
         } catch {
-          // Malformed tool input — skip
+          // Malformed tool input - skip
         }
         currentToolName = '';
         currentToolInput = '';

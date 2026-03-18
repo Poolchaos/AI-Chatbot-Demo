@@ -1,4 +1,4 @@
-# 06 — Admin Dashboard
+# 06 - Admin Dashboard
 
 ## Scope: Minimum Viable Admin
 
@@ -11,7 +11,7 @@ The admin dashboard needs to answer one question during the demo: **"What did th
 ### Page 1: Overview (Home)
 **Type:** [REAL] data + [VENEER] layout
 
-**Stats Row (REAL — computed from MongoDB):**
+**Stats Row (REAL - computed from MongoDB):**
 | Stat Card | Data Source |
 |-----------|-----------|
 | Total Conversations (today) | `conversations.count({ createdAt: today })` |
@@ -27,9 +27,9 @@ The admin dashboard needs to answer one question during the demo: **"What did th
 - Last 10 conversations, showing: time, message count, lead captured (yes/no)
 - Click to expand → goes to conversation detail
 
-**Charts (VENEER — seeded data):**
-- "Conversations This Week" — bar chart with seeded + any real data
-- "Lead Conversion Rate" — single percentage number (leads / conversations × 100)
+**Charts (VENEER - seeded data):**
+- "Conversations This Week" - bar chart with seeded + any real data
+- "Lead Conversion Rate" - single percentage number (leads / conversations × 100)
 - **Recommendation:** Skip charts entirely. The stat cards + activity feed are enough. If there's time on Day 6, add a simple bar chart.
 
 **Build estimate:** 3 hours (stats API route + layout + stat cards + activity feed)
@@ -59,7 +59,7 @@ The admin dashboard needs to answer one question during the demo: **"What did th
 **Table View:**
 - Columns: Name, Email, Company, Headcount, Budget, Event Type, Date, Status
 - Sorted by most recent
-- Status dropdown (New / Contacted / Qualified) — functional but [VENEER] in purpose
+- Status dropdown (New / Contacted / Qualified) - functional but [VENEER] in purpose
 
 **Click row:**
 - Shows the linked conversation (via `sessionId`)
@@ -72,10 +72,10 @@ The admin dashboard needs to answer one question during the demo: **"What did th
 ### Page 4: Settings
 **Type:** [VENEER]
 
-- LLM Provider toggle (Gemini / Claude) — actually functional if we wire it to the env var reload
+- LLM Provider toggle (Gemini / Claude) - actually functional if we wire it to the env var reload
 - Daily request limit display
 - Knowledge base preview (shows the content that's injected into prompts)
-- "Edit Content" button — [VENEER], or if time allows, a textarea that updates the `content` collection
+- "Edit Content" button - [VENEER], or if time allows, a textarea that updates the `content` collection
 
 **Build estimate:** 1 hour (static layout + content preview from DB)
 
@@ -83,7 +83,7 @@ The admin dashboard needs to answer one question during the demo: **"What did th
 
 ### Navigation
 - Sidebar: Overview | Conversations | Leads | Settings
-- Header: "Elevate Offsites — Admin" + token usage badge (green/yellow/red)
+- Header: "Elevate Offsites - Admin" + token usage badge (green/yellow/red)
 - **No authentication.** The demo runs on a private server. Adding auth is 3+ hours we don't have. If the client asks, we say: "Auth is configured per-deployment. For this demo, we've kept it open for easy access."
 
 ---
@@ -116,11 +116,11 @@ The admin dashboard needs to answer one question during the demo: **"What did th
 | `/api/admin/token-usage` | GET | Token usage for today + last 7 days |
 | `/api/admin/reset` | POST | Reset demo stage (drop data + re-seed) | `{ success: true, seeded: { conversations: 5, leads: 2 } }` |
 
-All routes read from MongoDB. No complex aggregation pipelines — simple `find()` with sort and limit. The stats route does a few `countDocuments()` calls.
+All routes read from MongoDB. No complex aggregation pipelines - simple `find()` with sort and limit. The stats route does a few `countDocuments()` calls.
 
 ---
 
-## Health Endpoint (Locked — Round 8)
+## Health Endpoint (Locked - Round 8)
 
 **Endpoint:** `GET /api/health`
 
@@ -139,18 +139,18 @@ All routes read from MongoDB. No complex aggregation pipelines — simple `find(
 ```
 
 **Checks:**
-1. MongoDB: `db.command({ ping: 1 })` — verifies connection
+1. MongoDB: `db.command({ ping: 1 })` - verifies connection
 2. LLM: Lightweight reachability check (model instantiation, no generation)
 
 **HTTP status:** 200 if all checks pass (`"healthy"`), 503 if any fail (`"degraded"`).
 
-**Frontend integration:** Single fetch on page load. Green dot = 200. Red dot = 503 or fetch error. No continuous polling — Docker healthcheck handles that separately (every 30s).
+**Frontend integration:** Single fetch on page load. Green dot = 200. Red dot = 503 or fetch error. No continuous polling - Docker healthcheck handles that separately (every 30s).
 
 **Build estimate:** 0.5 hours (OPUS-BUILD)
 
 ---
 
-## Reset Demo API (Locked — Round 7)
+## Reset Demo API (Locked - Round 7)
 
 **Endpoint:** `POST /api/admin/reset`
 
@@ -191,20 +191,20 @@ export async function POST() {
 
 ---
 
-## Admin Auth Illusion (Locked — Round 7)
+## Admin Auth Illusion (Locked - Round 7)
 
 **Type:** [VENEER]
 
 **Decision:** Fake login screen that accepts any password. NOT a hardcoded URL parameter.
 
-**Why not URL parameter:** If the client glances at the browser bar, they see `/admin?key=demopass` in plaintext. That signals "we thought about security and did it badly" — worse than no auth.
+**Why not URL parameter:** If the client glances at the browser bar, they see `/admin?key=demopass` in plaintext. That signals "we thought about security and did it badly" - worse than no auth.
 
 **Implementation:**
 - `/admin` route shows a clean login form (shadcn/ui `Input` + `Button`)
 - Fields: email + password + "Sign In" button
 - On submit: validate `password.length > 0`, set cookie `admin_session=demo` (httpOnly, sameSite strict)
 - Middleware checks for cookie; if missing, redirect to login form
-- Cookie persists across page refreshes — rep doesn't re-login during demo
+- Cookie persists across page refreshes - rep doesn't re-login during demo
 
 **Demo script response if client asks:** "Auth is configured per-deployment. For this demo, it's simplified. In production, we integrate with your SSO provider (Okta, Azure AD)."
 

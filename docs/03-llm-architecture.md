@@ -1,4 +1,4 @@
-# 03 — LLM Architecture
+# 03 - LLM Architecture
 
 ## Provider Decision
 
@@ -14,14 +14,14 @@
 | Tokens per minute | 1,000,000 TPM | Google AI Studio docs |
 | Requests per day | 500-1,500 RPD (fluctuates by regional routing) | GEMINI-LEAD verification + community reports |
 
-**Status: ✅ CONFIRMED (Round 4).** GEMINI-LEAD independently verified limits. Even worst-case 500 RPD gives ~50 full conversations/day — more than enough for testing and live demo. Day 1 gate test passed. Proceeding with Gemini as primary.
+**Status: ✅ CONFIRMED (Round 4).** GEMINI-LEAD independently verified limits. Even worst-case 500 RPD gives ~50 full conversations/day - more than enough for testing and live demo. Day 1 gate test passed. Proceeding with Gemini as primary.
 
 **Why Gemini for a demo:**
 - 15 RPM is more than enough (demo will have 1-3 concurrent users max)
 - 1,500 RPD covers ~100-150 full conversations per day (10-15 messages each)
 - Streaming supported via `generateContentStream`
 - Function calling supported natively
-- Quality for conversational Q&A with grounded content: good. Flash is optimized for speed, not depth — perfect for a chatbot that answers from provided context.
+- Quality for conversational Q&A with grounded content: good. Flash is optimized for speed, not depth - perfect for a chatbot that answers from provided context.
 
 **SDK:** `@google/generative-ai` (official Node.js SDK)
 
@@ -108,7 +108,7 @@ At ~6,700 tokens per request and 10 messages per conversation, one conversation 
 
 **Content update process:**
 1. Edit `content/knowledge-base.md`
-2. Restart the Next.js server (or implement a file watcher that reloads on change — stretch goal)
+2. Restart the Next.js server (or implement a file watcher that reloads on change - stretch goal)
 3. No re-indexing, no re-embedding, no pipeline
 
 **When this approach breaks (not relevant for demo):**
@@ -120,7 +120,7 @@ None of these apply to our demo.
 
 ---
 
-## Function Calling Stream Behavior (Locked — Round 6)
+## Function Calling Stream Behavior (Locked - Round 6)
 
 This is the most complex interaction in the pipeline. Here's exactly what happens when the LLM decides to call `save_lead`:
 
@@ -137,7 +137,7 @@ This is a multi-turn tool-use loop. For our demo, we **short-circuit it**.
 
 We do NOT send the tool result back to the LLM for a second generation. Why:
 - Adds a second LLM call per lead capture (doubles latency, doubles tokens)
-- The LLM's "confirmation" message is predictable — we can generate it from the system prompt
+- The LLM's "confirmation" message is predictable - we can generate it from the system prompt
 - The user doesn't need the LLM to confirm; a clean backend confirmation is better
 
 **Flow:**
@@ -203,7 +203,7 @@ The DB write happens server-side in parallel with the final text chunks being fl
 
 ### Edge Case: LLM Calls Tool Without Text
 
-Rare, but possible — the LLM might emit only a tool call with no text. In this case:
+Rare, but possible - the LLM might emit only a tool call with no text. In this case:
 1. Backend detects tool_call with no preceding text
 2. Backend manually injects a `text` chunk: `"I've noted your details. Our events team will reach out within 24 hours."`
 3. Then emits `lead_saved` + `done` as normal
@@ -233,9 +233,9 @@ Our API route extracts these from the response and:
 | Max messages per session | 20 | Bot says: "I've really enjoyed our conversation! To continue, let me connect you with our events team. What's the best email to reach you?" |
 | Max tokens per session | 100,000 | Same as above |
 
-The session limit doubles as a lead capture trigger. When the user hits 20 messages, they're engaged — perfect time to push for email.
+The session limit doubles as a lead capture trigger. When the user hits 20 messages, they're engaged - perfect time to push for email.
 
-**Enforcement: 100% backend.** The API route checks `conversation.messageCount` at the start of every request. If >= 20, the backend returns an `error` SSE chunk with `code: "SESSION_LIMIT"` immediately — no LLM call is made. The frontend does NOT need to track message counts or block the input UI. The backend handles it entirely.
+**Enforcement: 100% backend.** The API route checks `conversation.messageCount` at the start of every request. If >= 20, the backend returns an `error` SSE chunk with `code: "SESSION_LIMIT"` immediately - no LLM call is made. The frontend does NOT need to track message counts or block the input UI. The backend handles it entirely.
 
 Flow when limit is hit:
 1. User sends message 21
@@ -270,7 +270,7 @@ Document (one per day):
 
 - Upserted on every request via `$inc` (atomic, no race conditions)
 - Queried at the start of every request to check limits
-- No cron job needed — new day = new document (keyed by date string)
+- No cron job needed - new day = new document (keyed by date string)
 - TTL index on `updated_at` to auto-delete after 90 days
 
 ### Dashboard Display
@@ -286,7 +286,7 @@ The admin dashboard shows:
 
 ### Server → Client Protocol
 
-Using Server-Sent Events (SSE) over a POST request (not WebSocket — simpler, works through proxies).
+Using Server-Sent Events (SSE) over a POST request (not WebSocket - simpler, works through proxies).
 
 **Request:** `POST /api/chat`
 ```json
@@ -298,54 +298,54 @@ Using Server-Sent Events (SSE) over a POST request (not WebSocket — simpler, w
 
 **Response:** `Content-Type: text/event-stream`
 
-### SSE Chunk Schema (EXACT — parse against these)
+### SSE Chunk Schema (EXACT - parse against these)
 
 Every line in the stream follows the format `data: <JSON>\n\n`. The JSON always has a `type` field. There are exactly 5 chunk types:
 
-#### 1. `text` — Streamed content token
+#### 1. `text` - Streamed content token
 ```json
 {"type": "text", "content": "We"}
 ```
-- `content`: string — a fragment of the assistant's response (1-5 tokens worth of text)
+- `content`: string - a fragment of the assistant's response (1-5 tokens worth of text)
 - **Action:** Append `content` to the current assistant message buffer. Render with `react-markdown`.
 - **Frequency:** Many per response (typically 30-100 chunks per message)
 
-#### 2. `lead_saved` — Lead capture confirmation
+#### 2. `lead_saved` - Lead capture confirmation
 ```json
 {"type": "lead_saved", "leadId": "6604a3f2e1b2c3d4e5f60001"}
 ```
-- `leadId`: string — MongoDB ObjectId of the saved lead document
+- `leadId`: string - MongoDB ObjectId of the saved lead document
 - **Action:** Set `leadSaved = true` in ChatProvider context. Trigger the green "Verified Lead" badge / header pulse.
 - **Frequency:** 0 or 1 per response. Only emitted when the `save_lead` function call executes successfully.
 - **Timing:** Emitted AFTER all `text` chunks for the response. The user sees the full confirmation message ("I've noted that down...") before this meta-event fires.
 
-#### 3. `done` — Stream complete
+#### 3. `done` - Stream complete
 ```json
 {"type": "done", "usage": {"prompt_tokens": 5400, "completion_tokens": 280, "total_tokens": 5680}, "sessionMessageCount": 6}
 ```
-- `usage.prompt_tokens`: number — input tokens for this request
-- `usage.completion_tokens`: number — output tokens generated
-- `usage.total_tokens`: number — sum
-- `sessionMessageCount`: number — total messages in this session (user + assistant). Use this to show a subtle counter if desired.
+- `usage.prompt_tokens`: number - input tokens for this request
+- `usage.completion_tokens`: number - output tokens generated
+- `usage.total_tokens`: number - sum
+- `sessionMessageCount`: number - total messages in this session (user + assistant). Use this to show a subtle counter if desired.
 - **Action:** Mark `isStreaming = false`. Optionally display token usage in debug mode.
 - **Frequency:** Exactly 1, always the final chunk in a successful stream.
 
-#### 4. `error` — Server-side error
+#### 4. `error` - Server-side error
 ```json
 {"type": "error", "message": "I had a brief hiccup. Could you repeat that?", "code": "LLM_TIMEOUT"}
 ```
-- `message`: string — user-facing error message (safe to render directly in chat)
-- `code`: string — machine-readable error code for logging. One of: `LLM_TIMEOUT`, `LLM_ERROR`, `RATE_LIMITED`, `SESSION_LIMIT`, `DAILY_LIMIT`
+- `message`: string - user-facing error message (safe to render directly in chat)
+- `code`: string - machine-readable error code for logging. One of: `LLM_TIMEOUT`, `LLM_ERROR`, `RATE_LIMITED`, `SESSION_LIMIT`, `DAILY_LIMIT`
 - **Action:** Display `message` as an assistant message. Set `isLoading = false`, `isStreaming = false`.
 - **Frequency:** 0 or 1. If present, no `done` chunk follows.
 
-#### 5. `limit_warning` — Approaching limits
+#### 5. `limit_warning` - Approaching limits
 ```json
 {"type": "limit_warning", "kind": "daily", "percentUsed": 85.3}
 ```
-- `kind`: `"daily"` | `"session"` — which limit is being approached
-- `percentUsed`: number — percentage of the limit consumed
-- **Action:** Optional UI indicator. Could be ignored entirely for the demo — the backend handles degradation.
+- `kind`: `"daily"` | `"session"` - which limit is being approached
+- `percentUsed`: number - percentage of the limit consumed
+- **Action:** Optional UI indicator. Could be ignored entirely for the demo - the backend handles degradation.
 - **Frequency:** 0 or 1, emitted before `text` chunks if applicable.
 
 ### Full Stream Example (Normal Response)

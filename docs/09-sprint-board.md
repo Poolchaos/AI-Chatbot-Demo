@@ -1,9 +1,9 @@
-# 09 — Sprint Board
+# 09 - Sprint Board
 
-## Round 9 Status — FINAL (Day 7 — 18 March 2026)
+## Round 9 Status - FINAL (Day 7 - 18 March 2026)
 
 ```
-=== SPRINT BOARD (Round 9 — FINAL) ===
+=== SPRINT BOARD (Round 9 - FINAL) ===
 
 🔒 CODEBASE LOCKED (end of Day 6). No feature changes.
 
@@ -32,7 +32,7 @@ AGREED (new this round):
   CRITICAL: Do NOT reset before showing dashboard. Show live lead
   first, then reset only if client wants to try the flow.
 - [R9] Seed script: use `docker compose exec app node scripts/seed.js`
-  (not npm run seed — standalone build doesn't support npm scripts).
+  (not npm run seed - standalone build doesn't support npm scripts).
 - [R9] Dockerfile runner stage: add COPY scripts/ for seed access.
 - [R9] Pre-demo checklist updated: verify HTTPS cert provisioned.
 
@@ -41,14 +41,14 @@ DAY 2: ✅ COMPLETE
 DAY 3: ✅ COMPLETE
 DAY 4: ✅ COMPLETE
 DAY 5: ✅ COMPLETE
-DAY 6: ✅ COMPLETE — CODEBASE LOCKED
+DAY 6: ✅ COMPLETE - CODEBASE LOCKED
   - OPUS-BUILD: System prompt v3 ✓, GET /api/health ✓,
     20 test conversations ✓, seed validation ✓
   - GEMINI-LEAD: Mobile ✓, focus trap ✓, empty states ✓,
     landing audit ✓, status dot ✓, cross-browser ✓,
     settings veneer ✓, Docker dry run ✓
 
-DAY 7: 🔄 IN PROGRESS — DEPLOYMENT & DEMO PREP
+DAY 7: 🔄 IN PROGRESS - DEPLOYMENT & DEMO PREP
   - Deploy to private server (Caddy + HTTPS)
   - Seed fresh demo data
   - Dry run full 4-minute demo
@@ -74,11 +74,11 @@ All 9 rounds complete. All gates passed. Ship it.
 === SPRINT BOARD (Round 2) ===
 
 AGREED:
-- Niche: Elevate Offsites (corporate retreat planning) — Option B
+- Niche: Elevate Offsites (corporate retreat planning) - Option B
 - Stack: Next.js + MongoDB + Docker Compose
-- Content strategy: Full context injection (no RAG) — content fits in system prompt
+- Content strategy: Full context injection (no RAG) - content fits in system prompt
 - LLM primary: Gemini 2.0 Flash free tier (500-1,500 RPD, sufficient)
-- LLM fallback: Claude 3.5 Haiku ($0.80/$4.00 per 1M tokens — VERIFIED)
+- LLM fallback: Claude 3.5 Haiku ($0.80/$4.00 per 1M tokens - VERIFIED)
 - Lead capture: Native function calling (Tools API), not JSON output parsing
 - Chat UI: Custom useChat hook, not Vercel AI SDK
 - Admin dashboard: 4 pages (Overview, Conversations, Leads, Settings)
@@ -110,17 +110,17 @@ CONTESTED:
 NEEDS VERIFICATION:
 - Gemini 2.0 Flash: Day 1 gate test still required (25 sequential requests
   with our specific API key to confirm exact RPD limit)
-- Gemini function calling behavior during streaming — confirm tool_call
+- Gemini function calling behavior during streaming - confirm tool_call
   events are emitted during stream, not only after completion
   → TEST DAY 2
 
 SCOPE CUT:
-- Blog page — zero demo value
-- Analytics charts — replaced with real stat cards
-- Content editor in admin — edit markdown directly
-- Authentication — private server context
-- Nginx reverse proxy — Next.js serves directly
-- Conversation summarization — history window sufficient
+- Blog page - zero demo value
+- Analytics charts - replaced with real stat cards
+- Content editor in admin - edit markdown directly
+- Authentication - private server context
+- Nginx reverse proxy - Next.js serves directly
+- Conversation summarization - history window sufficient
 
 LLM DECISION:
 - Provider: Gemini 2.0 Flash (primary) | Claude 3.5 Haiku (fallback)
@@ -133,7 +133,7 @@ ROUND 2 RESOLUTIONS:
   1. useChat hook exposes `isLoading` = true from POST fire until first
      SSE chunk arrives. Framer Motion can trigger animation from this.
   2. When save_lead executes, API yields a meta-chunk in the SSE stream:
-     {"type":"lead_saved","leadId":"..."} — frontend uses this to trigger
+     {"type":"lead_saved","leadId":"..."} - frontend uses this to trigger
      success UI (green checkmark on chat header).
   3. Demo script flow confirmed and locked. GEMINI-LEAD proceeds with
      landing page build to support the narrative.
@@ -153,9 +153,9 @@ NEXT ROUND FOCUS:
 === SPRINT BOARD (Round 1) ===
 
 AGREED:
-- Niche: Elevate Offsites (corporate retreat planning) — Option B
+- Niche: Elevate Offsites (corporate retreat planning) - Option B
 - Stack: Next.js + MongoDB + Docker Compose
-- Content strategy: Full context injection (no RAG) — content fits in system prompt
+- Content strategy: Full context injection (no RAG) - content fits in system prompt
 - LLM primary: Gemini 2.0 Flash free tier (pending Day 1 verification)
 - LLM fallback: Claude 3.5 Haiku (pay-per-use, ~$0.01/conversation)
 - Lead capture: Native function calling (Tools API), not JSON output parsing
@@ -182,23 +182,23 @@ CONTESTED:
   impressive). PENDING GEMINI-LEAD confirmation.
 
 NEEDS VERIFICATION:
-- Gemini 2.0 Flash free tier daily request limit — reports conflict between
+- Gemini 2.0 Flash free tier daily request limit - reports conflict between
   1,500 RPD (official docs) and 20-50 RPD (community reports late 2025).
   TEST ON DAY 1: Send 25 sequential requests to confirm.
   WHERE TO CHECK: Google AI Studio console, actual API testing.
-- Claude 3.5 Haiku pricing as of March 2026 — estimated $0.80/$3.00 per
+- Claude 3.5 Haiku pricing as of March 2026 - estimated $0.80/$3.00 per
   1M tokens (input/output). Verify on Anthropic pricing page before committing
   as fallback.
-- Gemini function calling behavior with streaming — confirm tool_call events
+- Gemini function calling behavior with streaming - confirm tool_call events
   are emitted during stream, not only after completion.
 
 SCOPE CUT:
-- Blog page — cut entirely. Zero demo value, just visual filler.
-- Analytics charts — downgraded from Chart.js to stat cards (pending agreement).
-- Content editor in admin — cut. Edit the markdown file directly.
-- Authentication — cut. Private server, demo context.
-- Nginx reverse proxy — cut. Next.js serves directly.
-- Conversation summarization — cut. History window is sufficient.
+- Blog page - cut entirely. Zero demo value, just visual filler.
+- Analytics charts - downgraded from Chart.js to stat cards (pending agreement).
+- Content editor in admin - cut. Edit the markdown file directly.
+- Authentication - cut. Private server, demo context.
+- Nginx reverse proxy - cut. Next.js serves directly.
+- Conversation summarization - cut. History window is sufficient.
 
 LLM DECISION:
 - Provider: Gemini 2.0 Flash (primary), Claude 3.5 Haiku (fallback)

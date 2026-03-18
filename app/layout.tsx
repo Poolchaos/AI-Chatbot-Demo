@@ -9,7 +9,7 @@ import { ErrorBoundary } from '@/components/error-boundary';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Elevate Offsites — Premium Corporate Retreats',
+  title: 'Elevate Offsites - Premium Corporate Retreats',
   description:
     'Plan your next corporate retreat with Elevate Offsites. AI-powered event planning for teams of 15-200.',
 };

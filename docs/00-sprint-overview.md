@@ -1,4 +1,4 @@
-# Sprint Overview — Elevate Offsites Demo
+# Sprint Overview - Elevate Offsites Demo
 
 **Sprint type:** Two-person design sprint (1 week, evenings/weekends)
 **Participants:** GEMINI-LEAD (content, UI, veneer) · OPUS-BUILD (LLM, APIs, token mgmt, Docker)
@@ -9,7 +9,7 @@
 
 ## What We're Building
 
-A fictional corporate events company — **Elevate Offsites** — with a real website and a genuinely functional LLM chatbot. The product is the stage. The chatbot is the deliverable.
+A fictional corporate events company - **Elevate Offsites** - with a real website and a genuinely functional LLM chatbot. The product is the stage. The chatbot is the deliverable.
 
 The chatbot:
 - Answers questions about corporate retreat packages grounded in indexed content

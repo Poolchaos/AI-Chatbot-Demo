@@ -79,7 +79,7 @@ export default function AdminLoginPage() {
         </form>
 
         <p className="text-center text-xs text-slate-400">
-          Demo authentication — any password works
+          Demo authentication - any password works
         </p>
       </div>
     </div>

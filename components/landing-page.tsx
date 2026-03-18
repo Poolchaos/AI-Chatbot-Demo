@@ -21,7 +21,7 @@ function Hero() {
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
           We build high-impact, zero-stress corporate retreats for teams of
-          15–200. You focus on your people — we handle everything else.
+          15–200. You focus on your people - we handle everything else.
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-4">
           <a
@@ -54,13 +54,13 @@ function Features() {
       icon: Utensils,
       title: 'Full-Service Catering',
       description:
-        'Every dietary need covered — vegetarian, vegan, gluten-free, kosher, halal, and allergy-specific menus.',
+        'Every dietary need covered - vegetarian, vegan, gluten-free, kosher, halal, and allergy-specific menus.',
     },
     {
       icon: Bus,
       title: 'Logistics Handled',
       description:
-        'Round-trip transport, AV equipment, event coordination — we manage every detail so you don\'t have to.',
+        'Round-trip transport, AV equipment, event coordination - we manage every detail so you don\'t have to.',
     },
     {
       icon: Users,
@@ -229,7 +229,7 @@ function Testimonial() {
     <section className="py-20">
       <div className="mx-auto max-w-3xl px-6 text-center">
         <blockquote className="text-xl italic leading-relaxed text-slate-700">
-          &ldquo;Elevate Offsites handled everything — venue, catering,
+          &ldquo;Elevate Offsites handled everything - venue, catering,
           transport, activities. Our team came back more aligned and energized
           than after any retreat we&apos;ve done in-house. Worth every
           penny.&rdquo;

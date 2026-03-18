@@ -1,4 +1,4 @@
-# 05 — MongoDB Schema
+# 05 - MongoDB Schema
 
 ## Collections Overview
 
@@ -59,7 +59,7 @@ db.conversations.createIndex({ "metadata.lastMessageAt": 1 }, { expireAfterSecon
 ```
 
 **Notes:**
-- `sessionId` is generated client-side (UUID v4) and stored in `sessionStorage` — survives page refreshes but not tab close
+- `sessionId` is generated client-side (UUID v4) and stored in `sessionStorage` - survives page refreshes but not tab close
 - Messages array grows with conversation; document size will be <50KB even for a 20-message conversation
 - `totalTokens` is a pre-computed sum for dashboard display (avoids aggregation on read)
 
@@ -79,7 +79,7 @@ db.conversations.createIndex({ "metadata.lastMessageAt": 1 }, { expireAfterSecon
   eventType: "team retreat" | null,
   notes: "Interested in nature package for Q3" | null,
   source: "chatbot",                      // always "chatbot" for now
-  status: "new" | "contacted" | "qualified",  // [VENEER] — only "new" is set automatically
+  status: "new" | "contacted" | "qualified",  // [VENEER] - only "new" is set automatically
   createdAt: ISODate
 }
 ```
@@ -92,9 +92,9 @@ db.leads.createIndex({ sessionId: 1 })                   // link to conversation
 ```
 
 **Notes:**
-- Email is validated server-side before insert (basic regex + MX check is overkill — just regex)
+- Email is validated server-side before insert (basic regex + MX check is overkill - just regex)
 - Deduplication: if same email + same sessionId exists, update instead of insert. Different session = new lead (they came back).
-- `status` field exists for the admin dashboard to look like a CRM. Only "new" is ever set by the system. Changing status is [VENEER] — a dropdown that updates MongoDB but has no automation behind it.
+- `status` field exists for the admin dashboard to look like a CRM. Only "new" is ever set by the system. Changing status is [VENEER] - a dropdown that updates MongoDB but has no automation behind it.
 
 ---
 

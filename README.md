@@ -1,15 +1,15 @@
-# Elevate Offsites — AI Chatbot Demo
+# Elevate Offsites - AI Chatbot Demo
 
 An AI-powered sales chatbot for a premium corporate retreat business. Built with Next.js, MongoDB, and LLM integration (Google Gemini / Anthropic Claude).
 
 ## Features
 
-- **AI Chat Widget** — Floating chat bubble with SSE streaming, markdown rendering, and lead capture via function calling
-- **Landing Page** — Hero, features, pricing packages, testimonials
-- **Admin Dashboard** — Conversations, leads, token usage monitoring, demo reset
-- **Lead Capture** — Automatic extraction of contact info via LLM tool use
-- **Token Management** — 4-tier daily limit system (normal → warning → degraded → blocked)
-- **Docker Ready** — Multi-stage Dockerfile + docker-compose with MongoDB
+- **AI Chat Widget** - Floating chat bubble with SSE streaming, markdown rendering, and lead capture via function calling
+- **Landing Page** - Hero, features, pricing packages, testimonials
+- **Admin Dashboard** - Conversations, leads, token usage monitoring, demo reset
+- **Lead Capture** - Automatic extraction of contact info via LLM tool use
+- **Token Management** - 4-tier daily limit system (normal → warning → degraded → blocked)
+- **Docker Ready** - Multi-stage Dockerfile + docker-compose with MongoDB
 
 ## Quick Start
 
@@ -54,8 +54,8 @@ The app will be available at http://localhost:3000.
 |----------|---------|-------------|
 | `MONGODB_URI` | `mongodb://localhost:27017/elevate-offsites` | MongoDB connection string |
 | `LLM_PROVIDER` | `gemini` | LLM provider (`gemini` or `claude`) |
-| `GEMINI_API_KEY` | — | Google Gemini API key |
-| `ANTHROPIC_API_KEY` | — | Anthropic Claude API key |
+| `GEMINI_API_KEY` | - | Google Gemini API key |
+| `ANTHROPIC_API_KEY` | - | Anthropic Claude API key |
 | `DAILY_REQUEST_LIMIT` | `100` | Max API requests per day |
 | `SESSION_MESSAGE_LIMIT` | `20` | Max messages per chat session |
 | `NODE_ENV` | `development` | Environment |
@@ -101,7 +101,7 @@ npm run test:watch  # Watch mode
 
 Navigate to `/admin/login` and enter any password (demo auth). Dashboard provides:
 
-- **Overview** — Stats cards + token usage gauge + 7-day history
-- **Conversations** — Paginated list with detail view
-- **Leads** — Captured leads with status management
-- **Settings** — Demo data reset
+- **Overview** - Stats cards + token usage gauge + 7-day history
+- **Conversations** - Paginated list with detail view
+- **Leads** - Captured leads with status management
+- **Settings** - Demo data reset

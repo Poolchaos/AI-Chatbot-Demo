@@ -89,12 +89,12 @@ export default function LeadsPage() {
               return (
                 <tr key={lead._id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                   <td className="px-4 py-3 text-slate-900 font-medium">
-                    {lead.name || '—'}
+                    {lead.name || '-'}
                   </td>
                   <td className="px-4 py-3 text-slate-700">{lead.email}</td>
-                  <td className="px-4 py-3 text-slate-700">{lead.companyName || '—'}</td>
-                  <td className="px-4 py-3 text-slate-700">{lead.estimatedHeadcount ?? '—'}</td>
-                  <td className="px-4 py-3 text-slate-700">{lead.eventType || '—'}</td>
+                  <td className="px-4 py-3 text-slate-700">{lead.companyName || '-'}</td>
+                  <td className="px-4 py-3 text-slate-700">{lead.estimatedHeadcount ?? '-'}</td>
+                  <td className="px-4 py-3 text-slate-700">{lead.eventType || '-'}</td>
                   <td className="px-4 py-3">
                     <select
                       value={lead.status}

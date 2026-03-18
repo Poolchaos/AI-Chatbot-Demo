@@ -1,10 +1,10 @@
-# 11 — Demo Script ("The Golden Path")
+# 11 - Demo Script ("The Golden Path")
 
 ## Overview
 
 **Duration:** 4 minutes
 **Audience:** Potential client evaluating our chatbot solution
-**Goal:** Prove end-to-end value — from user landing on site → chatbot conversation → lead captured in admin dashboard
+**Goal:** Prove end-to-end value - from user landing on site → chatbot conversation → lead captured in admin dashboard
 
 The demo follows a single continuous narrative. Every feature shown exists because this script requires it.
 
@@ -12,19 +12,19 @@ The demo follows a single continuous narrative. Every feature shown exists becau
 
 ## The Script
 
-### Step 1 — The Hook (30 seconds)
+### Step 1 - The Hook (30 seconds)
 
 **Action:** Open the Elevate Offsites landing page in the browser. Scroll slowly past the hero section, through the feature grid, down to pricing.
 
 **What it proves:**
 - The product sits on a credible, professional website
-- This isn't a prototype — it looks like a real company's site
+- This isn't a prototype - it looks like a real company's site
 
-**Talking point:** "This is a fictional corporate retreat company we built as a demo environment. The website is the stage — the chatbot is what we're here to show you."
+**Talking point:** "This is a fictional corporate retreat company we built as a demo environment. The website is the stage - the chatbot is what we're here to show you."
 
 ---
 
-### Step 2 — The Opener (20 seconds)
+### Step 2 - The Opener (20 seconds)
 
 **Action:** Click the floating chat widget button in the bottom-right corner. The widget slides up with animation. The bot instantly streams its greeting.
 
@@ -32,7 +32,7 @@ The demo follows a single continuous narrative. Every feature shown exists becau
 > "Welcome to Elevate Offsites! Are you planning a corporate retreat, or just exploring what we offer?"
 
 **What it proves:**
-- Low latency — time-to-first-token must be under 1 second
+- Low latency - time-to-first-token must be under 1 second
 - Contextual greeting (not generic "How can I help you?")
 - Streaming feels responsive and modern
 
@@ -40,7 +40,7 @@ The demo follows a single continuous narrative. Every feature shown exists becau
 
 ---
 
-### Step 3 — The Test (45 seconds)
+### Step 3 - The Test (45 seconds)
 
 **Action:** Type: *"What is included in the Nature package, and how much is it for 20 people?"*
 
@@ -55,19 +55,19 @@ The demo follows a single continuous narrative. Every feature shown exists becau
 - Bot answers ONLY from the knowledge base (grounded, no hallucination)
 - Basic arithmetic from static pricing (20 × $450 = $9,000, shown explicitly)
 - **Bold formatting** on package names and pricing (micro-formatting rule)
-- Concise response — answers then asks, doesn't wall-of-text
+- Concise response - answers then asks, doesn't wall-of-text
 - Pacing rule: answer block separate from follow-up question
 
 **Demo risk:** Bot hallucinates an inclusion not in the knowledge base, or gets the math wrong. **Mitigation:** This exact question will be tested 10+ times during Day 6 prompt tuning.
 
 ---
 
-### Step 4 — The Pivot (30 seconds)
+### Step 4 - The Pivot (30 seconds)
 
 **Action:** Type: *"Actually, we might have 50 people."*
 
 **Expected bot response (approximate):**
-> Great — 50 people opens up some wonderful possibilities with the **Nature Package**. That would be **$22,500** at our standard rate.
+> Great - 50 people opens up some wonderful possibilities with the **Nature Package**. That would be **$22,500** at our standard rate.
 >
 > Do you have a rough budget range in mind? That'll help me recommend the right setup.
 
@@ -75,16 +75,16 @@ The demo follows a single continuous narrative. Every feature shown exists becau
 - Multi-turn context: bot remembers the previous package discussion
 - Updates its arithmetic (50 × $450 = $22,500)
 - Natural qualification question (budget) woven into conversation
-- Doesn't re-explain the package — builds on context
+- Doesn't re-explain the package - builds on context
 
 ---
 
-### Step 5 — Lead Capture (30 seconds)
+### Step 5 - Lead Capture (30 seconds)
 
 **Action:** Type: *"Budget is around $20k. My email is client@test.com."*
 
 **Expected bot response (approximate):**
-> That's a solid budget for a group of 50. I've passed your details to our events team — they'll reach out to **client@test.com** within 24 hours with a tailored proposal for the **Nature Package**.
+> That's a solid budget for a group of 50. I've passed your details to our events team - they'll reach out to **client@test.com** within 24 hours with a tailored proposal for the **Nature Package**.
 >
 > Is there anything else you'd like to know in the meantime?
 
@@ -98,7 +98,7 @@ The demo follows a single continuous narrative. Every feature shown exists becau
 
 ---
 
-### Step 6 — The Reveal (45 seconds)
+### Step 6 - The Reveal (45 seconds)
 
 **Action:** Open a new browser tab. Navigate to `/admin`. Log in via the fake login screen. The dashboard loads.
 
@@ -109,13 +109,13 @@ The demo follows a single continuous narrative. Every feature shown exists becau
    - Headcount: 150
    - Event Type: Nature Package
    - Status: New
-3. **Conversations tab:** Click into the conversation — full chat history rendered with user/bot messages
+3. **Conversations tab:** Click into the conversation - full chat history rendered with user/bot messages
 
-**Talking point:** *"Where did that lead go? Here it is — pre-qualified with headcount and event type. And here is the exact transcript. Your sales team steps in with full context."*
+**Talking point:** *"Where did that lead go? Here it is - pre-qualified with headcount and event type. And here is the exact transcript. Your sales team steps in with full context."*
 
 **What it proves:**
 - Real data flow: chat → MongoDB → admin dashboard
-- Not mocked — the lead was just created 30 seconds ago
+- Not mocked - the lead was just created 30 seconds ago
 - The admin dashboard is a working tool, not a screenshot
 
 **CRITICAL:** Do NOT reset before showing the dashboard. The live lead from Step 5 IS the proof. Only use the reset button if the client wants to try the flow themselves afterward.
@@ -131,9 +131,9 @@ The demo follows a single continuous narrative. Every feature shown exists becau
 5. [ ] Admin dashboard open in a second tab (logged in via fake login, ready to refresh)
 6. [ ] No existing conversation with "client@test.com" (or clear test data)
 7. [ ] Verify token usage is well below daily limit
-8. [ ] Test the exact messages above in sequence — confirm responses are acceptable
+8. [ ] Test the exact messages above in sequence - confirm responses are acceptable
 9. [ ] Have the fallback provider ready (`LLM_PROVIDER=claude`) if Gemini is flaky
-10. [ ] Reset button tested — 5-click in admin footer fires, toast appears, data refreshes
+10. [ ] Reset button tested - 5-click in admin footer fires, toast appears, data refreshes
 
 ## Features NOT in the Demo Script
 

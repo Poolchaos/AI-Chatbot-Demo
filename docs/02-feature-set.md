@@ -1,4 +1,4 @@
-# 02 — Feature Set
+# 02 - Feature Set
 
 ## REAL Features (Actually Functional)
 
@@ -13,7 +13,7 @@
 
 **Implementation approach:**
 - Custom React component (no heavy chat library)
-- Vercel AI SDK's `useChat` hook — **rejected** (see rationale below)
+- Vercel AI SDK's `useChat` hook - **rejected** (see rationale below)
 - Custom `useChat` hook using `fetch` with `ReadableStream` for explicit control over:
   - Token count extraction from response headers
   - Session ID management
@@ -48,7 +48,7 @@
 - Conversation history loaded from MongoDB, trimmed to last 10 exchanges (~2,000 tokens)
 - Total context per request: ~6,000-8,000 tokens input
 - Function calling for lead capture (see Lead Capture section)
-- Token counting from API response metadata (not tiktoken — use the LLM's own reported usage)
+- Token counting from API response metadata (not tiktoken - use the LLM's own reported usage)
 
 **Why 10 hours, not 8:**
 - Token tracking middleware + daily limit checking adds ~2 hours
@@ -71,7 +71,7 @@
 
 **What it does:** When the LLM detects the user has provided contact info or expressed buying intent, it triggers a structured lead save to MongoDB.
 
-**Implementation approach — Function Calling (Tools API):**
+**Implementation approach - Function Calling (Tools API):**
 
 Using native LLM function calling, NOT regex/JSON parsing from output. Rationale:
 - Function calling is a first-class feature in both Gemini and Claude
@@ -130,7 +130,7 @@ Using native LLM function calling, NOT regex/JSON parsing from output. Rationale
 |-----------|--------|
 | **Estimate** | 4 hours |
 | **Owner** | GEMINI-LEAD |
-| **Necessity** | ESSENTIAL — the chatbot needs to live somewhere believable |
+| **Necessity** | ESSENTIAL - the chatbot needs to live somewhere believable |
 
 Minimum veneer: Hero with headline + subheadline, 3-feature grid with icons, one testimonial block (fake), CTA button. Stock photos from Unsplash. The chat widget floats over this page. Without a decent landing page, the demo feels like a prototype, not a product.
 
@@ -141,9 +141,9 @@ Minimum veneer: Hero with headline + subheadline, 3-feature grid with icons, one
 |-----------|--------|
 | **Estimate** | 2 hours |
 | **Owner** | GEMINI-LEAD |
-| **Necessity** | NICE-TO-HAVE — adds legitimacy but not critical |
+| **Necessity** | NICE-TO-HAVE - adds legitimacy but not critical |
 
-Three static cards. No interactivity. The bot should be able to reference these prices from its content. Can be cut if behind schedule — the bot can just describe pricing verbally.
+Three static cards. No interactivity. The bot should be able to reference these prices from its content. Can be cut if behind schedule - the bot can just describe pricing verbally.
 
 ---
 
@@ -152,21 +152,21 @@ Three static cards. No interactivity. The bot should be able to reference these 
 |-----------|--------|
 | **Estimate** | 2-3 hours |
 | **Owner** | GEMINI-LEAD |
-| **Necessity** | SCOPE RISK — cut if behind schedule |
+| **Necessity** | SCOPE RISK - cut if behind schedule |
 
-Mocked charts with seeded data showing "conversations over time" and "lead conversion rate." Uses a lightweight chart library (recharts, not Chart.js — already in Next.js ecosystem). Looks good in screenshots. Zero functional value.
+Mocked charts with seeded data showing "conversations over time" and "lead conversion rate." Uses a lightweight chart library (recharts, not Chart.js - already in Next.js ecosystem). Looks good in screenshots. Zero functional value.
 
 **OPUS-BUILD recommendation:** Cut this to a single stat card row (total conversations, total leads, avg messages per conversation) computed from real MongoDB data. Takes 1 hour instead of 3, and it's [REAL] data. More impressive in a demo.
 
 ---
 
-## Vercel AI SDK — Why We're Not Using It
+## Vercel AI SDK - Why We're Not Using It
 
 GEMINI-LEAD asked about Vercel AI SDK vs. custom hook. Decision: **custom hook.**
 
 Reasons:
-1. Vercel AI SDK abstracts away token counting — we need explicit access to `usage.prompt_tokens` and `usage.completion_tokens` from every response
-2. Vercel AI SDK's `useChat` manages its own message state — we need to also sync with MongoDB session state
+1. Vercel AI SDK abstracts away token counting - we need explicit access to `usage.prompt_tokens` and `usage.completion_tokens` from every response
+2. Vercel AI SDK's `useChat` manages its own message state - we need to also sync with MongoDB session state
 3. Function calling (tool use) with streaming in Vercel AI SDK has had breaking changes across versions; rolling our own is ~50 lines of code and fully under our control
 4. We avoid a dependency that could introduce version conflicts with Next.js App Router
 
@@ -174,7 +174,7 @@ The custom hook is ~80 lines: manages messages array, sends POST to `/api/chat`,
 
 ---
 
-## Frontend Stack (Locked — Round 2)
+## Frontend Stack (Locked - Round 2)
 
 *Owned by GEMINI-LEAD. Agreed by OPUS-BUILD.*
 
@@ -186,13 +186,13 @@ The custom hook is ~80 lines: manages messages array, sends POST to `/api/chat`,
 | Chat State | Custom React Context | Wraps the `useChat` hook to manage global widget state (open/close, unread badge). Decouples widget UI from chat logic. |
 
 **OPUS-BUILD notes:**
-- shadcn/ui is a good call — copy-paste components, no library lock-in, works natively with Tailwind
+- shadcn/ui is a good call - copy-paste components, no library lock-in, works natively with Tailwind
 - Framer Motion adds ~30KB to bundle but justified for the demo feel
 - The React Context wrapper around `useChat` needs to expose: `isLoading` boolean (true from POST fire until first SSE chunk), `leadSaved` event (from meta-chunk in stream), and `messages` array
 
 ---
 
-## Chat UI State Machine (Locked — Round 3)
+## Chat UI State Machine (Locked - Round 3)
 
 *Defined by GEMINI-LEAD. Confirmed by OPUS-BUILD.*
 
@@ -212,7 +212,7 @@ first SSE chunk → isLoading=false, isStreaming=true →
 stream ends → isStreaming=false
 ```
 
-### Auto-Greeting Mechanism (Locked — Round 4)
+### Auto-Greeting Mechanism (Locked - Round 4)
 
 When the chat widget opens (either via floating bubble or Hero CTA button):
 
@@ -223,13 +223,13 @@ When the chat widget opens (either via floating bubble or Hero CTA button):
 5. API route detects the `__INIT__` sentinel and responds with the greeting stream (no user message stored)
 6. Bot streams: "Welcome to Elevate Offsites! Are you planning a corporate retreat, or just exploring what we offer?"
 
-This ensures the demo script Step 2 works — widget opens, greeting streams immediately, no user action needed.
+This ensures the demo script Step 2 works - widget opens, greeting streams immediately, no user action needed.
 
 The `__INIT__` message is never stored in conversation history. The greeting is the first assistant message in the session.
 
 ---
 
-### Demo Reset Button (Locked — Round 7)
+### Demo Reset Button (Locked - Round 7)
 
 **Type:** [REAL] API + [VENEER] hidden UI trigger
 
@@ -245,7 +245,7 @@ The `__INIT__` message is never stored in conversation history. The greeting is 
 
 ---
 
-### Admin Auth Veneer (Locked — Round 7)
+### Admin Auth Veneer (Locked - Round 7)
 
 **Type:** [VENEER]
 
@@ -256,7 +256,7 @@ The `__INIT__` message is never stored in conversation history. The greeting is 
 - Accepts any non-empty password
 - Sets `admin_session=demo` cookie (httpOnly, sameSite strict)
 - Middleware redirects to login if cookie missing
-- Cookie persists across refreshes — rep doesn't re-login during demo
+- Cookie persists across refreshes - rep doesn't re-login during demo
 
 **Demo script response:** "Auth is configured per-deployment. For this demo, it's simplified. In production, we integrate with your SSO provider."
 
@@ -264,27 +264,27 @@ The `__INIT__` message is never stored in conversation history. The greeting is 
 
 ---
 
-### Pre-Flight Health Indicator (Locked — Round 8)
+### Pre-Flight Health Indicator (Locked - Round 8)
 
 **Type:** [REAL]
 
 **Purpose:** Gives the sales rep confidence before starting the demo. A 6px status dot in the absolute bottom-left of the landing page footer.
 
 **Visual:**
-- **Green:** System online — DB connected, LLM reachable
-- **Red:** Backend failure — do not start the demo
+- **Green:** System online - DB connected, LLM reachable
+- **Red:** Backend failure - do not start the demo
 
 **Implementation:**
 - Single `fetch('/api/health')` on initial page load
 - Response 200 → green dot. Response 503 or fetch error → red dot.
-- No continuous polling — one shot is enough
+- No continuous polling - one shot is enough
 - CSS: `position: absolute; bottom: 8px; left: 8px; width: 6px; height: 6px; border-radius: 50%;`
 
 **Build estimate:** 0.5 hours total (OPUS-BUILD API, GEMINI-LEAD UI dot)
 
 ---
 
-### Frontend Hardening (Locked — Round 8)
+### Frontend Hardening (Locked - Round 8)
 
 **Type:** [REAL] polish
 

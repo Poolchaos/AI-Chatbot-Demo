@@ -1,4 +1,4 @@
-# 07 — Docker Compose Architecture
+# 07 - Docker Compose Architecture
 
 ## Services
 
@@ -125,10 +125,10 @@ db.content.createIndex({ key: 1 }, { unique: true });
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `MONGODB_URI` | Yes | — | MongoDB connection string |
+| `MONGODB_URI` | Yes | - | MongoDB connection string |
 | `LLM_PROVIDER` | Yes | `gemini` | `gemini` or `claude` |
-| `GEMINI_API_KEY` | If provider=gemini | — | Google AI Studio API key |
-| `CLAUDE_API_KEY` | If provider=claude | — | Anthropic API key |
+| `GEMINI_API_KEY` | If provider=gemini | - | Google AI Studio API key |
+| `CLAUDE_API_KEY` | If provider=claude | - | Anthropic API key |
 | `DAILY_REQUEST_LIMIT` | No | `1500` | Max LLM API requests per day |
 | `NODE_ENV` | No | `production` | Node environment |
 | `SESSION_MESSAGE_LIMIT` | No | `20` | Max messages per chat session |
@@ -141,9 +141,9 @@ For the demo:
 - Docker Compose reads from `.env` automatically
 - API keys are the only real secrets
 
-### Runtime vs Build-Time Variables (Confirmed — Round 8)
+### Runtime vs Build-Time Variables (Confirmed - Round 8)
 
-**ZERO `NEXT_PUBLIC_` variables in this project.** The frontend communicates with the backend via relative API routes (`/api/chat`, `/api/admin/*`) — no hardcoded URLs needed.
+**ZERO `NEXT_PUBLIC_` variables in this project.** The frontend communicates with the backend via relative API routes (`/api/chat`, `/api/admin/*`) - no hardcoded URLs needed.
 
 All secrets (`GEMINI_API_KEY`, `CLAUDE_API_KEY`, `MONGODB_URI`, `DEMO_MODE`, `LLM_PROVIDER`) are server-side only. They are passed via the `environment` block in `docker-compose.yml` at container startup. They are **never** present during the `npm run build` step in the Dockerfile.
 
@@ -191,7 +191,7 @@ curl -s http://localhost:3000/api/health | jq .
 
 ---
 
-### Production Deployment with Caddy (Locked — Round 9)
+### Production Deployment with Caddy (Locked - Round 9)
 
 **Caddyfile:**
 ```
@@ -227,7 +227,7 @@ Caddy auto-provisions a Let's Encrypt HTTPS certificate. Zero manual steps. The 
 
 ---
 
-### Seed Script in Docker (Locked — Round 9)
+### Seed Script in Docker (Locked - Round 9)
 
 The standalone Next.js build does not support `npm run seed` inside the container (no `node_modules/.bin` in PATH). Use:
 
@@ -235,7 +235,7 @@ The standalone Next.js build does not support `npm run seed` inside the containe
 docker compose exec app node scripts/seed.js
 ```
 
-**Dockerfile change required** (runner stage — deployment config, not feature code):
+**Dockerfile change required** (runner stage - deployment config, not feature code):
 ```dockerfile
 COPY --from=builder /app/scripts ./scripts
 ```
@@ -286,11 +286,11 @@ This lets us verify the system is working before the demo starts.
 
 ## Demo Day Checklist
 
-1. `docker compose up --build -d` — build and start
+1. `docker compose up --build -d` - build and start
 2. Wait for health check to pass: `curl localhost:3000/api/health`
 3. Run seed script if DB is empty: `docker compose exec app npx tsx scripts/seed.ts`
-4. Open `http://server-ip:3000` — landing page with chat widget
-5. Open `http://server-ip:3000/admin` — dashboard
+4. Open `http://server-ip:3000` - landing page with chat widget
+5. Open `http://server-ip:3000/admin` - dashboard
 6. Send a test message through the chat widget
 7. Verify the conversation appears in admin dashboard
 8. Verify token usage counter incremented

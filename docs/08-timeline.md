@@ -1,4 +1,4 @@
-# 08 — Timeline / Build Schedule
+# 08 - Timeline / Build Schedule
 
 ## Assumptions
 
@@ -11,7 +11,7 @@
 
 ## Day-by-Day Schedule
 
-### Day 1 — Foundation + LLM Verification ✅ COMPLETE
+### Day 1 - Foundation + LLM Verification ✅ COMPLETE
 
 | Task | Owner | Hours | Deliverable | Status |
 |------|-------|-------|-------------|--------|
@@ -26,12 +26,12 @@
 
 ---
 
-### Day 2 — LLM Core + Landing Page 🔄 IN PROGRESS
+### Day 2 - LLM Core + Landing Page 🔄 IN PROGRESS
 
 | Task | Owner | Hours | Deliverable | Status |
 |------|-------|-------|-------------|--------|
 | LLM provider abstraction layer (Gemini + Claude interfaces) | OPUS-BUILD | 2 | Provider swap via env var | 🔄 |
-| `/api/chat` route — basic (no streaming yet): system prompt + content injection + single response | OPUS-BUILD | 2 | Bot answers questions from content | 🔄 |
+| `/api/chat` route - basic (no streaming yet): system prompt + content injection + single response | OPUS-BUILD | 2 | Bot answers questions from content | 🔄 |
 | System prompt v2 implementation + testing | OPUS-BUILD | 1 | Prompt loaded, bot stays in persona | 🔄 |
 | Seed script (5 fake conversations, 2 fake leads) | OPUS-BUILD | 1 | `npm run seed` populates DB | 🔄 |
 | Landing page complete (hero, features, pricing) | GEMINI-LEAD | 3 | Full landing page | ✅ Hero, features, pricing done |
@@ -42,7 +42,7 @@
 
 ---
 
-### Day 3 — Streaming + Chat Widget 🔄 PARTIAL
+### Day 3 - Streaming + Chat Widget 🔄 PARTIAL
 
 | Task | Owner | Hours | Deliverable | Status |
 |------|-------|-------|-------------|--------|
@@ -53,11 +53,11 @@
 | Custom `useChat` hook (fetch + ReadableStream) | GEMINI-LEAD | 2 | Widget sends/receives messages with streaming | ⚠️ Blocked on SSE spec → NOW UNBLOCKED (R6) |
 | **Day 3 total** | | **~10h** | Chat widget on site, streaming responses, data saving to DB | |
 
-**Day 3 gate:** Backend complete. Frontend chat widget blocked on SSE spec — unblocked in Round 6.
+**Day 3 gate:** Backend complete. Frontend chat widget blocked on SSE spec - unblocked in Round 6.
 
 ---
 
-### Day 4 — Lead Capture + Session Limits + Chat Polish ✅ COMPLETE
+### Day 4 - Lead Capture + Session Limits + Chat Polish ✅ COMPLETE
 
 | Task | Owner | Hours | Deliverable | Status |
 |------|-------|-------|-------------|--------|
@@ -80,7 +80,7 @@
 
 ---
 
-### Day 5 — Admin Dashboard + Demo Infrastructure ✅ COMPLETE
+### Day 5 - Admin Dashboard + Demo Infrastructure ✅ COMPLETE
 
 | Task | Owner | Hours | Deliverable | Status |
 |------|-------|-------|-------------|--------|
@@ -88,7 +88,7 @@
 | Admin conversations page (list + detail w/ MessageBubble reuse) | GEMINI-LEAD | 2 | Can view all conversations | ✅ |
 | Admin leads page (sortable table + [VENEER] Export to CSV) | GEMINI-LEAD | 1.5 | Lead table renders with export button | ✅ |
 | Admin auth veneer (fake login screen, cookie-based) | GEMINI-LEAD | 0.5 | Login form blocks /admin without cookie | ✅ |
-| Admin API routes (`/api/admin/*` — 6 endpoints) | OPUS-BUILD | 3 | All admin data endpoints working | ✅ |
+| Admin API routes (`/api/admin/*` - 6 endpoints) | OPUS-BUILD | 3 | All admin data endpoints working | ✅ |
 | `POST /api/admin/reset` (demo reset + re-seed) | OPUS-BUILD | 0.5 | Reset button clears + re-seeds | ✅ |
 | Token usage display in admin | OPUS-BUILD | 1 | Usage gauge/bar on overview | ✅ |
 | Hidden "Reset Stage" 5-click button in admin footer | GEMINI-LEAD | 0.5 | Rep can reset stage mid-demo | ✅ |
@@ -98,7 +98,7 @@
 
 ---
 
-### Day 6 — Polish + Prompt Tuning + Docker Prep 🔄 IN PROGRESS
+### Day 6 - Polish + Prompt Tuning + Docker Prep 🔄 IN PROGRESS
 
 | Task | Owner | Hours | Deliverable | Status |
 |------|-------|-------|-------------|--------|
@@ -116,11 +116,11 @@
 | Docker dry run (`docker compose up --build -d`) | BOTH | 0.5 | Production image verified locally | ✅ |
 | **Day 6 total** | | **~9h** | Everything polished, tested, codebase LOCKED | ✅ |
 
-**Day 6 gate:** ✅ PASSED (Round 9). System prompt v3 tested (adversarial: joke, prompt extraction, competitor — all deflected). Health endpoint green. Docker dry run: 42s build, 148MB image, health check first ping. No visual breakage. Landing page copy matches knowledge-base.md. **CODEBASE LOCKED.**
+**Day 6 gate:** ✅ PASSED (Round 9). System prompt v3 tested (adversarial: joke, prompt extraction, competitor - all deflected). Health endpoint green. Docker dry run: 42s build, 148MB image, health check first ping. No visual breakage. Landing page copy matches knowledge-base.md. **CODEBASE LOCKED.**
 
 ---
 
-### Day 7 — Deployment & Demo Prep 🔄 IN PROGRESS
+### Day 7 - Deployment & Demo Prep 🔄 IN PROGRESS
 
 | Task | Owner | Hours | Deliverable | Status |
 |------|-------|-------|-------------|--------|
@@ -142,7 +142,7 @@
 |-------|-------|-------|-------|-------|-------|-------|-------|-------|
 | OPUS-BUILD | 3.5 | 5 | 5 | 5.5 | 4 | 4.5 | 2.5 | **30** |
 | GEMINI-LEAD | 5 | 4.5 | 5 | 3.5 | 6.5 | 3.5 | 1.5 | **29.5** |
-| **Both** | — | — | — | — | — | — | 1 | **1** |
+| **Both** | - | - | - | - | - | - | 1 | **1** |
 | **Daily total** | 8.5 | 9.5 | 10 | 9 | 10.5 | 8 | 6 | **61.5** |
 
 **Total: ~61.5 person-hours across 7 days.** Tight but doable for two senior devs.
@@ -162,7 +162,7 @@ Day 4: Function calling → lead save → rate limiting
 
 If Day 1's Gemini verification fails, we switch to Claude and lose 0.5 hours. No other task causes more than a 1-hour slip.
 
-GEMINI-LEAD's work is parallel after Day 1 (content). The chat widget (Day 3) needs the streaming endpoint to be ready — this is the one dependency crossover.
+GEMINI-LEAD's work is parallel after Day 1 (content). The chat widget (Day 3) needs the streaming endpoint to be ready - this is the one dependency crossover.
 
 ---
 
