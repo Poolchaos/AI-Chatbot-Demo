@@ -4,6 +4,7 @@ import './globals.css';
 import { ChatProvider } from '@/components/chat-provider';
 import { ChatWindow } from '@/components/chat-window';
 import { ChatBubble } from '@/components/chat-bubble';
+import { ErrorBoundary } from '@/components/error-boundary';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ChatProvider>
-          {children}
-          <ChatWindow />
-          <ChatBubble />
-        </ChatProvider>
+        <ErrorBoundary>
+          <ChatProvider>
+            {children}
+            <ChatWindow />
+            <ChatBubble />
+          </ChatProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

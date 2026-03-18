@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState, type FormEvent, type KeyboardEvent } from 'react';
+import { useRef, useEffect, useState, useCallback, type FormEvent, type KeyboardEvent, type ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import { X, Send, CheckCircle, MessageSquare } from 'lucide-react';
@@ -41,6 +41,14 @@ export function ChatWindow() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [inputValue, setInputValue] = useState('');
+
+  // Auto-resize textarea
+  const handleInputChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.target.value);
+    const el = e.target;
+    el.style.height = 'auto';
+    el.style.height = `${Math.min(el.scrollHeight, 96)}px`;
+  }, []);
 
   // Auto-scroll to bottom on new messages / streaming
   useEffect(() => {
@@ -188,7 +196,7 @@ export function ChatWindow() {
             <textarea
               ref={inputRef}
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={handleInputChange}
               onKeyDown={handleKeyDown}
               placeholder="Ask about our packages..."
               disabled={isLoading || isStreaming}
