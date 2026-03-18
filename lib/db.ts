@@ -1,0 +1,32 @@
+import { MongoClient, Db } from 'mongodb';
+
+const MONGODB_URI =
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/elevate-offsites';
+
+let cachedClient: MongoClient | null = null;
+let cachedDb: Db | null = null;
+
+export async function getDb(): Promise<Db> {
+  if (cachedDb) {
+    return cachedDb;
+  }
+
+  const client = new MongoClient(MONGODB_URI);
+  await client.connect();
+
+  const dbName = new URL(MONGODB_URI).pathname.slice(1) || 'elevate-offsites';
+  const db = client.db(dbName);
+
+  cachedClient = client;
+  cachedDb = db;
+
+  return db;
+}
+
+export async function getClient(): Promise<MongoClient> {
+  if (cachedClient) {
+    return cachedClient;
+  }
+  await getDb();
+  return cachedClient!;
+}
