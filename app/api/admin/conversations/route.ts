@@ -1,6 +1,8 @@
 import { NextRequest } from 'next/server';
 import { getDb } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   const db = await getDb();
   const url = new URL(request.url);

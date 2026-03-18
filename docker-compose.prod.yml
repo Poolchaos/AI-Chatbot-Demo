@@ -1,0 +1,65 @@
+services:
+  app:
+    image: ${APP_IMAGE:-ghcr.io/poolchaos/ai-chatbot-demo:latest}
+    container_name: chatbot-demo-app
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    ports:
+      - '127.0.0.1:3006:3000'
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://chatbot-demo-mongo:27017/elevate-offsites
+      - LLM_PROVIDER=${LLM_PROVIDER:-gemini}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY:-}
+      - DAILY_REQUEST_LIMIT=${DAILY_REQUEST_LIMIT:-100}
+      - SESSION_MESSAGE_LIMIT=${SESSION_MESSAGE_LIMIT:-20}
+      - DEMO_MODE=true
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - chatbot-demo-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  mongodb:
+    image: mongo:7
+    container_name: chatbot-demo-mongo
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:27020:27017'
+    volumes:
+      - chatbot_demo_mongo_data:/data/db
+    networks:
+      - chatbot-demo-net
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  chatbot-demo-net:
+    driver: bridge
+
+volumes:
+  chatbot_demo_mongo_data:

@@ -1,6 +1,8 @@
 import { getDb } from '@/lib/db';
 import { seedDemoData } from '@/scripts/seed';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST() {
   if (
     process.env.NODE_ENV === 'production' &&

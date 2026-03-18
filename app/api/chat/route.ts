@@ -1,5 +1,7 @@
 import { NextRequest } from 'next/server';
 import { getDb } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
 import { getLLMProvider } from '@/lib/llm';
 import { buildSystemPrompt, SAVE_LEAD_TOOL } from '@/lib/prompt';
 import {

@@ -215,7 +215,10 @@ async function main() {
   process.exit(0);
 }
 
-main().catch((err) => {
-  console.error('Seed failed:', err);
-  process.exit(1);
-});
+// Only run when executed directly (not when imported as a module)
+if (require.main === module) {
+  main().catch((err) => {
+    console.error('Seed failed:', err);
+    process.exit(1);
+  });
+}

@@ -1,6 +1,8 @@
 import { ObjectId } from 'mongodb';
 import { getDb } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }

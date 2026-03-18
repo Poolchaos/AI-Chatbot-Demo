@@ -1,5 +1,7 @@
 import { getDb } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 function todayString(): string {
   return new Date().toISOString().slice(0, 10);
 }
