@@ -4,6 +4,7 @@ import { getDb } from '@/lib/db';
 export const dynamic = 'force-dynamic';
 import { getLLMProvider } from '@/lib/llm';
 import { buildSystemPrompt, SAVE_LEAD_TOOL } from '@/lib/prompt';
+import { screenMessage } from '@/lib/guard';
 import {
   getDailyUsageStatus,
   incrementDailyUsage,
@@ -56,10 +57,27 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const isInit = message === '__INIT__';
+
+  // ─── Server-side message screening ────────────────────────────────
+  if (!isInit) {
+    const guardResult = screenMessage(message);
+    if (guardResult.blocked) {
+      return new Response(
+        sseEncode({ type: 'text', content: guardResult.response || '' }) +
+          sseEncode({
+            type: 'done',
+            usage: { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 },
+            sessionMessageCount: 0,
+          }),
+        { status: 200, headers: { 'Content-Type': 'text/event-stream' } }
+      );
+    }
+  }
+
   const db = await getDb();
   const conversationsCol = db.collection<ConversationDocument>('conversations');
   const providerName = (process.env.LLM_PROVIDER || 'gemini') as 'gemini' | 'claude';
-  const isInit = message === '__INIT__';
 
   // ─── Get or create conversation ─────────────────────────────────────
   let conversation = await conversationsCol.findOne({ sessionId });
@@ -352,6 +370,7 @@ export async function POST(request: NextRequest) {
           )
         );
       } catch (error) {
+        console.error('[chat] LLM error:', error instanceof Error ? error.message : error);
         const isTimeout =
           error instanceof Error &&
           (error.message.includes('timeout') || error.message.includes('ETIMEDOUT'));
