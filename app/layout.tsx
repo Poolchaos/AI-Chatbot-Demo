@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { ChatProvider } from '@/components/chat-provider';
+import { ChatWindow } from '@/components/chat-window';
+import { ChatBubble } from '@/components/chat-bubble';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +20,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ChatProvider>
+          {children}
+          <ChatWindow />
+          <ChatBubble />
+        </ChatProvider>
+      </body>
     </html>
   );
 }
