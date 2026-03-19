@@ -8,7 +8,7 @@ services:
       - MONGODB_URI=mongodb://mongo:27017/elevate-offsites
       - LLM_PROVIDER=${LLM_PROVIDER:-gemini}
       - GEMINI_API_KEY=${GEMINI_API_KEY:-}
-      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.5-flash}
       - CLAUDE_API_KEY=${CLAUDE_API_KEY:-}
       - DAILY_REQUEST_LIMIT=${DAILY_REQUEST_LIMIT:-100}
       - SESSION_MESSAGE_LIMIT=${SESSION_MESSAGE_LIMIT:-20}

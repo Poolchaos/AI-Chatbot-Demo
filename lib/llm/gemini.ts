@@ -31,7 +31,7 @@ export class GeminiProvider implements LLMProvider {
 
   constructor(apiKey: string) {
     const genAI = new GoogleGenerativeAI(apiKey);
-    const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+    const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
     this.model = genAI.getGenerativeModel({ model: modelName });
   }
 

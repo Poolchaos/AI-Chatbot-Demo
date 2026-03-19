@@ -5,6 +5,7 @@ import { ChatProvider } from '@/components/chat-provider';
 import { ChatWindow } from '@/components/chat-window';
 import { ChatBubble } from '@/components/chat-bubble';
 import { ErrorBoundary } from '@/components/error-boundary';
+import { Navbar } from '@/components/navbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ErrorBoundary>
           <ChatProvider>
+            <Navbar />
             {children}
             <ChatWindow />
             <ChatBubble />
