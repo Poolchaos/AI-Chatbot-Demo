@@ -97,6 +97,56 @@ npm test          # Run all tests
 npm run test:watch  # Watch mode
 ```
 
+## Testing the Chatbot
+
+Use these example questions to exercise the AI chatbot's knowledge and capabilities:
+
+### Packages & Pricing
+- "What packages do you offer for corporate retreats?"
+- "What's the difference between the Essential and Signature packages?"
+- "Do you have options for a team of 50 people?"
+- "What's included in the Summit package?"
+
+### Destinations & Venues
+- "What destinations do you recommend for a winter retreat?"
+- "Do you offer retreats in Cape Town?"
+- "What are your most popular retreat locations?"
+- "Can you suggest a venue with outdoor adventure activities?"
+
+### Logistics & Planning
+- "How far in advance should we book a retreat?"
+- "What does the planning process look like?"
+- "Do you handle travel arrangements and accommodation?"
+- "Can you accommodate dietary restrictions?"
+
+### Team Building & Activities
+- "What kind of team building activities do you offer?"
+- "Do you have options for remote teams meeting in person for the first time?"
+- "What activities work best for leadership development?"
+- "Can you include wellness activities in our retreat?"
+
+### Budget & ROI
+- "How do I justify the cost of a retreat to my CFO?"
+- "What ROI can we expect from a corporate offsite?"
+- "Do you offer payment plans?"
+- "What's the typical cost per person for a 3-day retreat?"
+
+### Blog & Industry Insights
+- "What tips do you have for planning a successful offsite?"
+- "Tell me about the future of corporate retreats"
+- "Do you have any case studies or success stories?"
+- "What are the latest trends in team building?"
+
+### Lead Capture (triggers contact form)
+- "I'd like to book a retreat for 30 people in March"
+- "Can someone call me to discuss options? My number is 555-0100"
+- "I'm interested — my email is test@example.com"
+
+### Out-of-Scope (should politely redirect)
+- "What's the weather like today?"
+- "Can you help me write a Python script?"
+- "Tell me a joke"
+
 ## Admin Dashboard
 
 Navigate to `/admin/login` and enter any password (demo auth). Dashboard provides:

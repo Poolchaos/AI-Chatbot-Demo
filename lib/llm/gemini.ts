@@ -42,7 +42,14 @@ export class GeminiProvider implements LLMProvider {
   }): AsyncGenerator<StreamChunk> {
     this.tokenUsage = null;
 
-    const history: Content[] = params.messages.slice(0, -1).map((msg) => ({
+    // Gemini requires history to start with a 'user' role message.
+    // Drop leading assistant/model messages (e.g. the __INIT__ greeting).
+    let filteredMessages = params.messages.slice(0, -1);
+    while (filteredMessages.length > 0 && filteredMessages[0].role === 'assistant') {
+      filteredMessages = filteredMessages.slice(1);
+    }
+
+    const history: Content[] = filteredMessages.map((msg) => ({
       role: msg.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: msg.content }],
     }));
